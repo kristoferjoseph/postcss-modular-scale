@@ -16,7 +16,7 @@
     "url": "https://github.com/kristoferjoseph/postcss-modular-scale.git"
   },
   "dependencies": {
-    "modular-scale": "^4.1.0",
+    "modular-scale": "^4.2.0",
     "postcss": "^4.1.5",
     "postcss-message-helpers": "^2.0.0",
     "reduce-function-call": "^1.0.1"

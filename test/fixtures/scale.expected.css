@@ -1,0 +1,9 @@
+:root {
+  --bases: 16, 12;
+  --ratios: 2;
+}
+
+.header {
+  font-size: 48rem;
+}
+

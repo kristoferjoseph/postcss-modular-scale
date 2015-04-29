@@ -19,7 +19,7 @@ Usage
 
 .my-class {
   padding: ms(1)rem ms(2)rem;
-  font-zise: ms(3)rem;
+  font-size: ms(3)rem;
 }
 ```
 

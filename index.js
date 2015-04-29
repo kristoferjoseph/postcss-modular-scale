@@ -19,11 +19,15 @@ module.exports = postcss.plugin('postcss-modular-scale', function (opts) {
       if (decl.parent.selector === ':root') {
 
          if (decl.prop === '--ms-bases') {
-           bases = decl.value.split(',')
+           bases = decl.value.split(',').map(function(base) {
+             return parseInt(base, 10)
+           })
          }
 
          if (decl.prop === '--ms-ratios') {
-           ratios = decl.value.split(',')
+           ratios = decl.value.split(',').map(function(ratio) {
+             return parseInt(ratio, 10)
+           })
          }
 
       }
@@ -39,6 +43,7 @@ module.exports = postcss.plugin('postcss-modular-scale', function (opts) {
       ratios: ratios
     })
 
+    console.log('bases', bases)
     declarations.forEach(function(decl) {
       decl.value = helpers.try(function transformMS() {
         return reduceFunctionCall(decl.value, "ms", function reduceMS(body, fn) {
@@ -48,3 +53,4 @@ module.exports = postcss.plugin('postcss-modular-scale', function (opts) {
     })
   }
 })
+

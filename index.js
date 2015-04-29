@@ -18,11 +18,11 @@ module.exports = postcss.plugin('postcss-modular-scale', function (opts) {
 
       if (decl.parent.selector === ':root') {
 
-         if (decl.prop === '--bases') {
+         if (decl.prop === '--ms-bases') {
            bases = decl.value.split(',')
          }
 
-         if (decl.prop === '--ratios') {
+         if (decl.prop === '--ms-ratios') {
            ratios = decl.value.split(',')
          }
 

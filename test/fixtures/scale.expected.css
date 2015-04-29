@@ -1,6 +1,6 @@
 :root {
-  --bases: 16, 12;
-  --ratios: 2;
+  --ms-bases: 16, 12;
+  --ms-ratios: 2;
 }
 
 .header {

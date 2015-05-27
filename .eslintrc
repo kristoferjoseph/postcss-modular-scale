@@ -10,7 +10,6 @@
         "key-spacing":           [0],
         "max-len":               [2],
         "strict":                [0],
-        "indent":                [2],
         "quotes":                [2, "single", "avoid-escape"],
         "curly":                 [0]
     },

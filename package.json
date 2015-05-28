@@ -5,7 +5,7 @@
   "keywords": [
     "postcss",
     "css",
-    "postcssplugin",
+    "postcss-plugin",
     "modular",
     "scale"
   ],

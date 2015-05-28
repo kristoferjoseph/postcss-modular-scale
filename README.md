@@ -19,18 +19,32 @@ Usage
     0.75 = 12px ( target ) / 16px ( base font size )
     Generates `em` or `rem` relative values
 
+### Input
+
 ```css
 :root {
   --ms-bases: 1, 0.75;
-  --ms-ratio: 2;
+  --ms-ratios: 2;
 }
 
-.my-class {
-  padding: ms(1)rem ms(2)rem;
-  font-size: ms(3)rem;
+.header {
+  font-size: ms(4)rem;
 }
+
 ```
 
+### Output
+
+```css
+:root {
+  --ms-bases: 1, 0.75;
+  --ms-ratios: 2;
+}
+
+.header {
+  font-size: 3rem;
+}
+```
 Mad props
 --------
 

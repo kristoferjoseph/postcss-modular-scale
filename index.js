@@ -12,7 +12,7 @@ module.exports = postcss.plugin('postcss-modular-scale', function (opts) {
   return function (css) {
     var ms;
 
-    css.eachDecl(function transformDecl(decl) {
+    css.walkDecls(function transformDecl(decl) {
       if (!decl.value) {
         return;
       }

@@ -1,27 +1,51 @@
-# PostCSS Modular Scale [![Build Status][ci-img]][ci]
+PostCSS Modular Scale
+=====================
 
-[PostCSS] plugin for generating modular scale in your stylesheet..
+A plugin to provide a modular scale function in your styles.
 
-[PostCSS]: https://github.com/postcss/postcss
-[ci-img]:  https://travis-ci.org/kristoferjoseph/postcss-modular-scale.svg
-[ci]:      https://travis-ci.org/kristoferjoseph/postcss-modular-scale
+Install
+-------
+
+`npm install postcss-modular-scale`
+
+Usage
+-----
+
+> To generate relative values use target / base font size
+
+   Example:
+
+    1 = 16px ( target ) / 16px ( base font size )
+    0.75 = 12px ( target ) / 16px ( base font size )
+    Generates `em` or `rem` relative values
+
+### Input
 
 ```css
-.foo {
-    /* Input example */
+:root {
+  --ms-bases: 1, 0.75;
+  --ms-ratios: 2;
 }
+
+.header {
+  font-size: ms(4)rem;
+}
+
 ```
+
+### Output
 
 ```css
-.foo {
-  /* Output example */
+:root {
+  --ms-bases: 1, 0.75;
+  --ms-ratios: 2;
+}
+
+.header {
+  font-size: 3rem;
 }
 ```
+Mad props
+--------
 
-## Usage
-
-```js
-postcss([ require('postcss-modular-scale') ])
-```
-
-See [PostCSS] docs for examples for your environment.
+Tons of thanks to Scott Kellum @scottkellum & Tim Brown @nicewebtype for making [Modular Scale](http://www.modularscale.com) and the libraries that make this plugin possible.

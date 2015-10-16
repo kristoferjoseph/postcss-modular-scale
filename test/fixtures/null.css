@@ -1,0 +1,7 @@
+:root {
+    --not-ms: #f00;
+}
+
+.header {
+    padding: ms(4)rem;
+}

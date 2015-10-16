@@ -1,29 +1,42 @@
 var fs = require('fs');
 var postcss = require('postcss');
-var expect = require('chai').expect;
+var expect  = require('chai').expect;
+
 var plugin = require('../');
 
-function filename(name) {
-  return 'test/fixtures/' + name + '.css';
-}
+var test = function (input, output, opts, done) {
+    postcss([ plugin(opts) ]).process(input).then(function (result) {
+        expect(result.css).to.eql(output);
+        expect(result.warnings()).to.be.empty;
+        done();
+    }).catch(function (error) {
+        done(error);
+    });
+};
 
-function read(name) {
-  return fs.readFileSync(name, 'utf8');
-}
+describe('postcss-modular-scale', function () {
 
-function test(input, output, opts, done) {
-  postcss([plugin(opts)]).process(input).then(function(result) {
-    expect(result.css).to.equal(output);
-    done();
-  });
-}
+    it('should modular scale', function (done) {
+        var input = fs.readFileSync(
+            'test/fixtures/scale.css',
+            'utf8'
+        );
+        var output = fs.readFileSync(
+            'test/fixtures/scale.expected.css',
+            'utf8'
+        );
+        test(input, output, {}, done);
+    });
 
-describe('postcss-modular-scale', function() {
-
-  it('should parse modular scale', function(done) {
-    var input = read(filename('scale'));
-    var output = read(filename('scale.expected'));
-    test(input, output, {}, done);
-  });
-
+    it('should not bomb on nothing', function (done) {
+        var input = fs.readFileSync(
+            'test/fixtures/null.css',
+            'utf8'
+        );
+        var output = fs.readFileSync(
+            'test/fixtures/null.expected.css',
+            'utf8'
+        );
+        test(input, output, {}, done);
+    });
 });

@@ -39,4 +39,17 @@ describe('postcss-modular-scale', function () {
         );
         test(input, output, {}, done);
     });
+
+    it('should not bomb on nonsense', function (done) {
+        var input = fs.readFileSync(
+            'test/fixtures/nonsense.css',
+            'utf8'
+        );
+        var output = fs.readFileSync(
+            'test/fixtures/nonsense.expected.css',
+            'utf8'
+        );
+        test(input, output, {}, done);
+    });
+
 });

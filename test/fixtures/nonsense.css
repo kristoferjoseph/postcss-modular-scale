@@ -1,0 +1,8 @@
+:root {
+  --ms-bases: 'chewbacca', 'happiness';
+  --ms-ratios: 'octopus';
+}
+
+.header {
+  padding: ms(4)rem;
+}

@@ -1,7 +1,7 @@
 {
   "name": "postcss-modular-scale",
-  "version": "0.0.0",
-  "description": "PostCSS plugin for generating modular scale in your stylesheet.",
+  "version": "2.4.1",
+  "description": "PostCSS plugin for incorporating modular scale units in your styles.",
   "keywords": [
     "postcss",
     "css",
@@ -12,7 +12,10 @@
   ],
   "author": "Kristofer Joseph <kristoferjoseph@gmail.com>",
   "license": "MIT",
-  "repository": "kristoferjoseph/postcss-modular-scale",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kristoferjoseph/postcss-modular-scale.git"
+  },
   "bugs": {
     "url": "https://github.com/kristoferjoseph/postcss-modular-scale/issues"
   },

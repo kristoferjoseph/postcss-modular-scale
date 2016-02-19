@@ -10,7 +10,9 @@ function parseUnit(value) {
     return value.split(')')[1].trim() || 'rem';
 }
 
-module.exports = postcss.plugin('postcss-modular-scale', function (opts) {
+var pluginName = 'postcss-modular-scale';
+
+module.exports = postcss.plugin(pluginName, function (opts) {
     opts = opts || {};
     var ratios = opts.ratios;
     var bases = opts.bases;
@@ -29,16 +31,20 @@ module.exports = postcss.plugin('postcss-modular-scale', function (opts) {
 
                 if (decl.prop === '--ms-ratios') {
                     ratios = decl.value.split(',');
-                    result.messages.push(
-                        'Modular scale ratios: ' + ratios
-                    );
+                    result.messages.push({
+                        type:    'modular-scale-ratios',
+                        plugin:  pluginName,
+                        text: "Modular scale ratios: " + ratios
+                    });
                 }
 
                 if (decl.prop === '--ms-bases') {
                     bases = decl.value.split(',');
-                    result.messages.push(
-                        'Modular scale bases: ' + bases
-                    );
+                    result.messages.push({
+                        type:    'modular-scale-bases',
+                        plugin:  pluginName,
+                        text: 'Modular scale bases: ' + bases
+                    });
                 }
             }
 
@@ -54,9 +60,11 @@ module.exports = postcss.plugin('postcss-modular-scale', function (opts) {
             var number = parseValue(decl.value);
             var unit = parseUnit(decl.value);
             var newValue = ms(number) + unit;
-            result.messages.push(
-                'Modular scale for ' + decl.value + ' is ' + newValue
-            );
+            result.messages.push({
+                type:    'modular-scale-result',
+                plugin:  pluginName,
+                text: 'Modular scale for ' + decl.value + ' is ' + newValue
+            });
 
             decl.value = ms(number) + unit;
         });

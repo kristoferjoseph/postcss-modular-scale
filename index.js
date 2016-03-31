@@ -3,7 +3,7 @@ var ModularScale = require('modular-scale');
 
 function parseValue(value) {
     var number = /\(([^)]+)\)/.exec(value)[1] || 0;
-    return  parseInt(number, 10);
+    return parseInt(number, 10);
 }
 
 function parseUnit(value) {
@@ -12,16 +12,16 @@ function parseUnit(value) {
 
 var pluginName = 'postcss-modular-scale';
 
-module.exports = postcss.plugin(pluginName, function (opts) {
+module.exports = postcss.plugin(pluginName, function(opts) {
     opts = opts || {};
     var ratios = opts.ratios;
     var bases = opts.bases;
 
-    return function (css, result) {
+    return function(css, result) {
         var declarations = [];
         var ms = null;
 
-        css.walkDecls(function (decl) {
+        css.walkDecls(function(decl) {
 
             if (!decl.value) {
                 return;
@@ -32,17 +32,17 @@ module.exports = postcss.plugin(pluginName, function (opts) {
                 if (decl.prop === '--ms-ratios') {
                     ratios = decl.value.split(',');
                     result.messages.push({
-                        type:    'modular-scale-ratios',
-                        plugin:  pluginName,
-                        text: "Modular scale ratios: " + ratios
+                        type: 'modular-scale-ratios',
+                        plugin: pluginName,
+                        text: 'Modular scale ratios: ' + ratios
                     });
                 }
 
                 if (decl.prop === '--ms-bases') {
                     bases = decl.value.split(',');
                     result.messages.push({
-                        type:    'modular-scale-bases',
-                        plugin:  pluginName,
+                        type: 'modular-scale-bases',
+                        plugin: pluginName,
                         text: 'Modular scale bases: ' + bases
                     });
                 }
@@ -54,15 +54,18 @@ module.exports = postcss.plugin(pluginName, function (opts) {
 
         });
 
-        ms = new ModularScale({ ratios: ratios, bases: bases });
+        ms = new ModularScale({
+            ratios: ratios,
+            bases: bases
+        });
 
-        declarations.forEach(function (decl) {
+        declarations.forEach(function(decl) {
             var number = parseValue(decl.value);
             var unit = parseUnit(decl.value);
             var newValue = ms(number) + unit;
             result.messages.push({
-                type:    'modular-scale-result',
-                plugin:  pluginName,
+                type: 'modular-scale-result',
+                plugin: pluginName,
                 text: 'Modular scale for ' + decl.value + ' is ' + newValue
             });
 
@@ -70,3 +73,4 @@ module.exports = postcss.plugin(pluginName, function (opts) {
         });
     };
 });
+

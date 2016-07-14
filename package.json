@@ -22,7 +22,8 @@
   "homepage": "https://github.com/kristoferjoseph/postcss-modular-scale",
   "dependencies": {
     "modular-scale": "^4.4.1",
-    "postcss": "^5.0.2"
+    "postcss": "^5.0.2",
+    "postcss-value-parser": "^3.3.0"
   },
   "devDependencies": {
     "chai": "^3.2.0",

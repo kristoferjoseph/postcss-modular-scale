@@ -1,14 +1,6 @@
 var postcss = require('postcss');
 var ModularScale = require('modular-scale');
-
-function parseValue(value) {
-    var number = /\(([^)]+)\)/.exec(value)[1] || 0;
-    return parseInt(number, 10);
-}
-
-function parseUnit(value) {
-    return value.split(')')[1].trim() || 'rem';
-}
+var valueParser = require('postcss-value-parser');
 
 var pluginName = 'postcss-modular-scale';
 
@@ -60,16 +52,34 @@ module.exports = postcss.plugin(pluginName, function(opts) {
         });
 
         declarations.forEach(function(decl) {
-            var number = parseValue(decl.value);
-            var unit = parseUnit(decl.value);
-            var newValue = ms(number) + unit;
-            result.messages.push({
-                type: 'modular-scale-result',
-                plugin: pluginName,
-                text: 'Modular scale for ' + decl.value + ' is ' + newValue
+            var parsedValue = valueParser(decl.value);
+
+            parsedValue.walk(function (node) {
+              if (node.type === 'function' && node.value === 'ms') {
+                if (node.nodes.length === 1 && node.nodes[0].type === 'word') {
+                  var value = parseFloat(node.nodes[0].value);
+
+                  if (!isNaN(value)) {
+                    var newValue = ms(value);
+
+                    node.type = 'word';
+                    node.value = newValue;
+
+                    result.messages.push({
+                      type: 'modular-scale-result',
+                      plugin: pluginName,
+                      text: 'Modular scale for ' + decl.value + ' is ' + newValue
+                    });
+                  } else {
+                    throw decl.error('Modular scale value should be a number', { plugin: pluginName });
+                  }
+                } else {
+                  throw decl.error('Modular scale value should be a number', { plugin: pluginName });
+                }
+              }
             });
 
-            decl.value = ms(number) + unit;
+            decl.value = parsedValue.toString();
         });
     };
 });

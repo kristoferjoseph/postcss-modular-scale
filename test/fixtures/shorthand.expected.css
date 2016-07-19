@@ -1,0 +1,9 @@
+:root {
+  --ms-bases: 1;
+  --ms-ratios: 2;
+}
+
+.header {
+  padding: 2rem 4rem 8rem 16rem;
+}
+

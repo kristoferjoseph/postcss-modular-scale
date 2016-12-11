@@ -23,6 +23,7 @@ module.exports = postcss.plugin(pluginName, function(opts) {
 
                 if (decl.prop === '--ms-ratios') {
                     ratios = decl.value.split(',');
+                    decl.remove();
                     result.messages.push({
                         type: 'modular-scale-ratios',
                         plugin: pluginName,
@@ -32,6 +33,7 @@ module.exports = postcss.plugin(pluginName, function(opts) {
 
                 if (decl.prop === '--ms-bases') {
                     bases = decl.value.split(',');
+                    decl.remove();
                     result.messages.push({
                         type: 'modular-scale-bases',
                         plugin: pluginName,
@@ -83,4 +85,3 @@ module.exports = postcss.plugin(pluginName, function(opts) {
         });
     };
 });
-

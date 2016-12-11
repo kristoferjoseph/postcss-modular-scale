@@ -72,6 +72,18 @@ describe('postcss-modular-scale', function () {
         test(input, output, {}, done);
     });
 
+    it('should set unitless values to REMs', function (done) {
+        var input = fs.readFileSync(
+            'test/fixtures/unitless.css',
+            'utf8'
+        );
+        var output = fs.readFileSync(
+            'test/fixtures/unitless.expected.css',
+            'utf8'
+        );
+        test(input, output, {}, done);
+    });
+
     it('should report an error on incorrect values', function (done) {
         var input = fs.readFileSync(
             'test/fixtures/nonsense-values.css',

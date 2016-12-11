@@ -56,29 +56,37 @@ module.exports = postcss.plugin(pluginName, function(opts) {
         declarations.forEach(function(decl) {
             var parsedValue = valueParser(decl.value);
 
-            parsedValue.walk(function (node) {
-              if (node.type === 'function' && node.value === 'ms') {
-                if (node.nodes.length === 1 && node.nodes[0].type === 'word') {
-                  var value = parseFloat(node.nodes[0].value);
+            parsedValue.walk(function (node, index, nodes) {
+                if (node.type === 'function' && node.value === 'ms') {
+                    if (node.nodes.length === 1 && node.nodes[0].type === 'word') {
+                        var value = parseFloat(node.nodes[0].value);
 
-                  if (!isNaN(value)) {
-                    var newValue = ms(value);
+                        if (!isNaN(value)) {
+                            var newValue = ms(value);
 
-                    node.type = 'word';
-                    node.value = newValue;
+                            node.type = 'word';
+                            node.value = newValue;
 
-                    result.messages.push({
-                      type: 'modular-scale-result',
-                      plugin: pluginName,
-                      text: 'Modular scale for ' + decl.value + ' is ' + newValue
-                    });
-                  } else {
-                    throw decl.error('Modular scale value should be a number', { plugin: pluginName });
-                  }
-                } else {
-                  throw decl.error('Modular scale value should be a number', { plugin: pluginName });
+                            result.messages.push({
+                                type: 'modular-scale-result',
+                                plugin: pluginName,
+                                text: 'Modular scale for ' + decl.value + ' is ' + newValue
+                            });
+                        } else {
+                            throw decl.error('Modular scale value should be a number', { plugin: pluginName });
+                        }
+                    } else {
+                        throw decl.error('Modular scale value should be a number', { plugin: pluginName });
+                    }
+
+                    // If no length was provided---that is, if the current node
+                    // is followed by a "space" node or the current node is the
+                    // last in the declaration---append the "rem" unit.
+                    var nextIndex = index + 1;
+                    if (nextIndex === nodes.length || nodes[nextIndex].type === 'space') {
+                        node.value += 'rem';
+                    }
                 }
-              }
             });
 
             decl.value = parsedValue.toString();

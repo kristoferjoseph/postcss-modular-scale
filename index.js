@@ -48,6 +48,12 @@ module.exports = postcss.plugin(pluginName, function(opts) {
 
         });
 
+        css.walkRules(':root', function(rule) {
+            if (rule.nodes.length === 0) {
+                rule.remove();
+            }
+        });
+
         ms = new ModularScale({
             ratios: ratios,
             bases: bases

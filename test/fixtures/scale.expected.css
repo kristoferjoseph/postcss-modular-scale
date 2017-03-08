@@ -1,9 +1,3 @@
-:root {
-  --ms-bases: 1, 0.75;
-  --ms-ratios: 2;
-}
-
 .header {
   font-size: 3rem;
 }
-

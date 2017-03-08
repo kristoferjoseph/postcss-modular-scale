@@ -1,0 +1,8 @@
+:root {
+    --ms-bases: 1;
+    --ms-ratios: 2;
+}
+
+.rootless {
+    font-size: ms(1)rem;
+}

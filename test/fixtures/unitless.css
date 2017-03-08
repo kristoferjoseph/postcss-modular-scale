@@ -1,0 +1,10 @@
+:root {
+  --ms-bases: 1;
+  --ms-ratios: 2;
+}
+
+.header {
+  border-top: ms(2)px solid #000;
+  font-size: ms(1);
+  padding: ms(1) ms(2)rem ms(3) ms(4)rem;
+}

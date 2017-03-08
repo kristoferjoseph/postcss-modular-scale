@@ -95,4 +95,16 @@ describe('postcss-modular-scale', function () {
         );
         failTest(input, output, {}, done);
     });
+
+    it('should remove empty :root rules', function (done) {
+        var input = fs.readFileSync(
+            'test/fixtures/rootless.css',
+            'utf8'
+        );
+        var output = fs.readFileSync(
+            'test/fixtures/rootless.expected.css',
+            'utf8'
+        );
+        test(input, output, {}, done);
+    });
 });
